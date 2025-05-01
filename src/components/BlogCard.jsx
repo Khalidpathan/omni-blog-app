@@ -46,8 +46,8 @@ const Blog = ({
   ],
 }) => {
   return (
-    <Tabs defaultValue="tab1" className="w-400px">
-      <TabsList className="grid w-full grid-cols-2">
+    <Tabs defaultValue="tab1" className="w-full">
+      <TabsList className="grid w-[300px] grid-cols-2 mx-auto">
         <TabsTrigger value="account">All Blogs</TabsTrigger>
         <TabsTrigger value="password">My Blogs</TabsTrigger>
       </TabsList>
@@ -74,7 +74,7 @@ const Blog = ({
               </div>
               <CardHeader>
                 <h3 className="text-lg font-semibold hover:underline md:text-xl">
-                  <a href={post.url} target="_blank">
+                  <a href={`/blog/${post.id}`} className="hover:underline">
                     {post.title}
                   </a>
                 </h3>

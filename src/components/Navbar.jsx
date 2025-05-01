@@ -30,24 +30,15 @@ const Navbar = ({
     title: "Shadcnblocks.com",
   },
   menu = [
-    { title: "Home", url: "#" },
-    {
-      title: "All Blogs",
-      url: "#",
-    },
-    
-    {
-      title: "My Blogs",
-      url: "#",
-    },
+    { title: "Home", url: "/" },
     {
       title: "Create Blog",
-      url: "#",
+      url: "/create",
     },
   ],
   auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
+    login: { title: "Login", url: "/login" },
+    signup: { title: "Sign up", url: "/signup" },
   },
 }) => {
   const renderMenuItem = (item) => {
@@ -188,7 +179,6 @@ const Navbar = ({
                     <Button asChild>
                       <a href={auth.signup.url}>{auth.signup.title}</a>
                     </Button>
-                    
                   </div>
                 </div>
               </SheetContent>
