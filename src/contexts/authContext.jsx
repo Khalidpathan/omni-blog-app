@@ -1,38 +1,36 @@
-import React, { createContext, useState, useEffect } from 'react';
-import api from '../api/axiosInstance';
+import { createContext, useContext, useState } from "react";
+import axios from "axios";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    const email = localStorage.getItem('userEmail');
-    if (token && email) setUser(email);
-  }, []);
-
   const login = async (email, password) => {
-    const resp = await api.post('/users/login/', { email, password });
-    localStorage.setItem('accessToken', resp.data.access);
-    localStorage.setItem('userEmail', email);
-    setUser(email);
+    const res = await axios.post("http://localhost:8000/api/token/", {
+      email,
+      password,
+    });
+    localStorage.setItem("access", res.data.access);
+    localStorage.setItem("refresh", res.data.refresh);
+    setUser({ email }); // Simplified
   };
 
-  const signup = async (email, password) => {
-    await api.post('/users/signup/', { email, password });
-    await login(email, password);
+  const register = async (email, password) => {
+    await axios.post("http://localhost:8000/api/register/", { email, password });
   };
 
   const logout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userEmail');
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
+
+export const useAuth = () => useContext(AuthContext);
