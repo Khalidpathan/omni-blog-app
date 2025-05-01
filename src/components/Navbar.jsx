@@ -33,7 +33,7 @@ const Navbar = ({
     { title: "Home", url: "/" },
     {
       title: "Create Blog",
-      url: "/create",
+      url: "/private/create",
     },
   ],
   auth = {
